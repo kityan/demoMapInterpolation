@@ -449,28 +449,28 @@ template {
   font-family: 'PT Sans';
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts/PT_Sans-Web-Regular.ttf);
+  src: url(fonts/PT_Sans-Web-Regular.ttf);
 }
 
 @font-face {
   font-family: 'PT Sans';
   font-style: italic;
   font-weight: 400;
-  src: url(/fonts/PT_Sans-Web-Italic.ttf);
+  src: url(fonts/PT_Sans-Web-Italic.ttf);
 }
 
 @font-face {
   font-family: 'PT Sans';
   font-style: normal;
   font-weight: 700;
-  src: url(/fonts/PT_Sans-Web-Bold.ttf);
+  src: url(fonts/PT_Sans-Web-Bold.ttf);
 }
 
 @font-face {
   font-family: 'PT Sans';
   font-style: italic;
   font-weight: 700;
-  src: url(/fonts/PT_Sans-Web-BoldItalic.ttf);
+  src: url(fonts/PT_Sans-Web-BoldItalic.ttf);
 }
 @charset "UTF-8";
 /*!
