@@ -1,0 +1,14 @@
+%flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$defaultFontSize: 14px;
+
+%defaultFont {
+  font-family: 'PT Sans', sans-serif;
+  color: #CCC;
+  font-size: $defaultFontSize;
+  font-weight: 400;
+}

@@ -1,0 +1,30 @@
+.wrapper {
+  margin: 10px;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 40px;
+  .scale {
+    display: flex;
+    & > div {height: 15px; width: 4px;}
+    margin-bottom: 2px;
+  }
+  .ticks {
+    display: flex;
+    justify-content: space-between;
+    .tick {
+      width: 1px;
+      position: relative;
+      .text {
+        font-size: 10px;
+        position: absolute;
+        transform: translate(-50%);
+      }
+    }
+  }
+}
