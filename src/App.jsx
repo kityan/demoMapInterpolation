@@ -21,6 +21,7 @@ class App extends Component {
     minTemp: null,
     maxTemp: null,
     errorDialogIsOpen: false,
+    requestsInProgress: false,
   }
 
   render() {
@@ -48,29 +49,46 @@ class App extends Component {
             <p>Не удалось загрузить данные, попробуйте повторить через минуту.</p>
           </div>
         </Dialog>
-      </React.Fragment>
+        <Dialog
+          icon={IconNames.GLOBE_NETWORK}
+          onClose={() => { }}
+          title="Загрузка"
+          isOpen={this.state.requestsInProgress}
+          canEscapeKeyClose={true}
+          usePortal={true}
+          portalClassName="movedToFront"
+        >
+          <div className={Classes.DIALOG_BODY}>
+            <p>Загружаем данные (60 запросов).</p>
+          </div>
+        </Dialog>
+      </React.Fragment >
     )
   }
 
   saveCurrentBounds = bounds => this.setState({ bounds })
 
-  request = async type => {
-    const bbox = (type === 'VISIBLE_BBOX') ? this.state.bounds : world
-    try {
-      const data = await ApiManager.getWeatherPointsForBBox(bbox)
-      this.setState({ markersData: data })
-      const options = { gridType: 'square', property: 'temperature', units: 'kilometers', weight: 3 }
-      setTimeout(() => {
-        const rectsData = turf.interpolate(data, this.calcCellSize(data), options)
-        const [minTemp, maxTemp] = this.getTempBounds(rectsData.features)
-        const linear = scaleLinear().domain([minTemp, maxTemp]).range([0, 100])
-        rectsData.features = rectsData.features.map(f => ({ ...f, properties: { color: perc2color(100 - linear(f.properties.temperature)) } }))
-        this.setState({ rectsData, maxTemp, minTemp })
-      }, 100)
-    }
-    catch (error) {
-      this.setState({ errorDialogIsOpen: true })
-    }
+  request = type => {
+    this.setState({ requestsInProgress: true })
+    setTimeout(async () => {
+      const bbox = (type === 'VISIBLE_BBOX') ? this.state.bounds : world
+      try {
+        const data = await ApiManager.getWeatherPointsForBBox(bbox)
+        this.setState({ markersData: data })
+        const options = { gridType: 'square', property: 'temperature', units: 'kilometers', weight: 3 }
+        this.setState({ requestsInProgress: false })
+        setTimeout(() => {
+          const rectsData = turf.interpolate(data, this.calcCellSize(data), options)
+          const [minTemp, maxTemp] = this.getTempBounds(rectsData.features)
+          const linear = scaleLinear().domain([minTemp, maxTemp]).range([0, 100])
+          rectsData.features = rectsData.features.map(f => ({ ...f, properties: { color: perc2color(100 - linear(f.properties.temperature)) } }))
+          this.setState({ rectsData, maxTemp, minTemp })
+        }, 100)
+      }
+      catch (error) {
+        this.setState({ errorDialogIsOpen: true, requestsInProgress: false })
+      }
+    }, 100)
   }
 
   getTempBounds = features => {

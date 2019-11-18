@@ -1,5 +1,5 @@
 export default {
-  api: ({ lat, lng }) => `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=3794c3f5df42da1f9672d29116d0bf56&units=metric`,
+  api: ({ lat, lng }) => `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=3794c3f5df42da1f9672d29116d0bf56&units=metric`,
   map: {
     initialOptions: {
       center: [55, 37],

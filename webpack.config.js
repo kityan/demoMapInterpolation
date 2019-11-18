@@ -29,7 +29,7 @@ module.exports = {
   output: {
     path: distPath,
     filename: '[name].[chunkhash].js',
-    publicPath: '/'
+    publicPath: './',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
