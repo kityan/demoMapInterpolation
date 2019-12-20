@@ -17,6 +17,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     this.createMap(this.mapElementRef.current)
+
   }
 
   componentWillUnmount() {
@@ -27,6 +28,14 @@ class Map extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.markersData && this.props.markersData !== prevProps.markersData) {
+
+      console.log(JSON.stringify(
+        this.props.markersData.features.map(item => {
+          const { x, y } = this.map.latLngToContainerPoint([item.geometry.coordinates[1], item.geometry.coordinates[0]])
+          return [x, y, item.properties.temperature]
+        })
+      ))
+
       // this.placeMarkers(this.props.markersData)
     }
     if (this.props.rectsData && this.props.rectsData !== prevProps.rectsData) {
