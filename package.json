@@ -16,7 +16,7 @@
     "@blueprintjs/icons": "^3.8.0",
     "@blueprintjs/select": "^3.8.0",
     "@turf/turf": "^5.1.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "d3-scale": "^3.2.0",
     "geolib": "^2.0.24",
